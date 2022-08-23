@@ -1,6 +1,6 @@
 package com.example.reactdemoapp.services;
 
-import com.example.reactdemoapp.UserRepository;
+import com.example.reactdemoapp.repositories.UserRepository;
 import com.example.reactdemoapp.entities.UserEntity;
 import com.example.reactdemoapp.models.shared.dtos.UserDto;
 import org.springframework.beans.BeanUtils;
@@ -48,6 +48,22 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public UserDto getUser(String email) {
+
+            UserEntity userEntity = userRepository.findByEmail(email);
+
+            if (userEntity == null) {
+                throw new UsernameNotFoundException(email);
+            }
+            UserDto userToReturn = new UserDto();
+
+            BeanUtils.copyProperties(userEntity, userToReturn);
+
+            return  userToReturn;
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         UserEntity userEntity = userRepository.findByEmail(email);
@@ -57,4 +73,5 @@ public class UserService implements UserServiceInterface {
         }
         return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
     }
+
 }

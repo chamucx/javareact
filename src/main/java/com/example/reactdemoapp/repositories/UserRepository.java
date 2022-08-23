@@ -1,4 +1,4 @@
-package com.example.reactdemoapp;
+package com.example.reactdemoapp.repositories;
 
 import com.example.reactdemoapp.entities.UserEntity;
 import org.springframework.data.repository.CrudRepository;
