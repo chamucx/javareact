@@ -1,12 +1,11 @@
 package com.example.reactdemoapp.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "users")
+@Table(indexes = {@Index(columnList = "userId", name = "index_userid", unique = true),
+        @Index(columnList = "email", name = "index_email", unique = true)})
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
