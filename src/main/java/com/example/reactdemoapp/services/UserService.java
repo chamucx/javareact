@@ -1,5 +1,6 @@
 package com.example.reactdemoapp.services;
 
+import com.example.reactdemoapp.exceptions.EmailExistException;
 import com.example.reactdemoapp.repositories.UserRepository;
 import com.example.reactdemoapp.entities.UserEntity;
 import com.example.reactdemoapp.models.shared.dtos.UserDto;
@@ -28,7 +29,7 @@ public class UserService implements UserServiceInterface {
     public UserDto createUser(UserDto user) {
 
         if (userRepository.findByEmail(user.getEmail()) != null)
-            throw new RuntimeException("Usuario con ese email ya existe");
+            throw new EmailExistException("Usuario con ese email ya existe");
 
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
